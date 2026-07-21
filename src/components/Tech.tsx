@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { SectionTitle } from "./SectionTitle";
 import { useI18n } from "@/lib/i18n";
 import {
-  SiHtml5, SiCss3, SiJavascript, SiTypescript, SiReact, SiNextdotjs,
+  SiHtml5, SiCss, SiJavascript, SiTypescript, SiReact, SiNextdotjs,
   SiTailwindcss, SiGreensock, SiFramer, SiGit, SiGithub, SiFigma,
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
 const items: { icon: IconType; name: string; color: string }[] = [
   { icon: SiHtml5, name: "HTML", color: "#E44D26" },
-  { icon: SiCss3, name: "CSS", color: "#1572B6" },
+  { icon: SiCss, name: "CSS", color: "#1572B6" },
   { icon: SiJavascript, name: "JavaScript", color: "#F7DF1E" },
   { icon: SiTypescript, name: "TypeScript", color: "#3178C6" },
   { icon: SiReact, name: "React", color: "#61DAFB" },
