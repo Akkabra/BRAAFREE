@@ -1,24 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { I18nProvider } from "@/lib/i18n";
+import { Loader } from "@/components/Loader";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Experience } from "@/components/Experience";
+import { Tech } from "@/components/Tech";
+import { Projects } from "@/components/Projects";
+import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { GridBackground } from "@/components/GridBackground";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Bryan Alvarez — Frontend Developer" },
+      { name: "description", content: "Portafolio de Bryan Alvarez, Frontend Developer con 4+ años creando experiencias web rápidas, elegantes e interactivas." },
+      { property: "og:title", content: "Bryan Alvarez — Frontend Developer" },
+      { property: "og:description", content: "Experiencias web modernas, fluidas y de alto impacto." },
+    ],
+  }),
+  component: Page,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Page() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <I18nProvider>
+      <Loader />
+      <SmoothScroll>
+        <div className="relative min-h-screen bg-[#050505] text-white">
+          <GridBackground />
+          <Navbar />
+          <main>
+            <Hero />
+            <Experience />
+            <Tech />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </SmoothScroll>
+    </I18nProvider>
   );
 }
