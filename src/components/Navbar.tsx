@@ -30,13 +30,15 @@ export function Navbar() {
       className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
     >
       <nav
-        className={`glass border-gradient-red flex items-center gap-2 rounded-full px-3 py-2 md:px-5 md:py-3 transition-shadow ${
-          scrolled ? "shadow-[0_20px_60px_-30px_rgba(225,6,0,0.45)]" : ""
+        className={`glass flex items-center gap-2 rounded-full px-3 py-2 md:px-5 md:py-3 transition-all duration-300 ${
+          scrolled
+            ? "border-transparent shadow-[0_18px_50px_-24px_rgba(225,6,0,0.8)] ring-1 ring-white/10"
+            : "border-gradient-red shadow-[0_12px_30px_-22px_rgba(0,0,0,0.9)]"
         }`}
       >
         <a href="#home" className="mr-2 hidden md:flex items-center gap-2 px-2">
-          <span className="h-2 w-2 rounded-full bg-gradient-red" />
-          <span className="font-display text-sm tracking-widest">BA</span>
+          <span className="h-2.5 w-2.5 rounded-full bg-gradient-red shadow-[0_0_12px_rgba(225,6,0,0.6)]" />
+          <span className="font-display text-sm tracking-[0.28em] text-white">BA</span>
         </a>
 
         <ul className="hidden md:flex items-center gap-1">
@@ -44,7 +46,7 @@ export function Navbar() {
             <li key={l.key}>
               <a
                 href={l.href}
-                className="relative rounded-full px-4 py-2 text-sm text-[#B5B5B5] hover:text-white transition-colors"
+                className="relative rounded-full px-4 py-2 text-sm font-medium tracking-[0.12em] text-[#B5B5B5] transition-all duration-300 hover:text-white hover:bg-white/[0.04]"
               >
                 {t(l.key)}
               </a>
@@ -64,7 +66,7 @@ export function Navbar() {
 
         <button
           onClick={toggle}
-          className="group relative flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-xs font-medium tracking-widest transition-all hover:border-[#E10600]/60"
+          className="group relative flex items-center gap-1 rounded-full border border-white/10 bg-black/35 px-3 py-1.5 text-[11px] font-semibold tracking-[0.25em] uppercase transition-all duration-300 hover:border-[#E10600]/70 hover:bg-[#E10600]/10"
         >
           <span className={lang === "es" ? "text-white" : "text-[#B5B5B5]"}>ES</span>
           <span className="text-white/30">|</span>
@@ -73,14 +75,14 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="absolute top-full mt-3 w-[calc(100%-2rem)] max-w-md glass rounded-2xl p-4 md:hidden">
+        <div className="absolute top-full mt-3 w-[calc(100%-2rem)] max-w-md rounded-[1.5rem] border border-white/10 bg-black/70 p-4 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl md:hidden">
           <ul className="flex flex-col gap-1">
             {links.map((l) => (
               <li key={l.key}>
                 <a
                   onClick={() => setOpen(false)}
                   href={l.href}
-                  className="block rounded-lg px-4 py-3 text-sm text-[#B5B5B5] hover:bg-white/5 hover:text-white"
+                  className="block rounded-lg px-4 py-3 text-sm font-medium tracking-[0.12em] text-[#B5B5B5] transition-colors hover:bg-white/5 hover:text-white"
                 >
                   {t(l.key)}
                 </a>

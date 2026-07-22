@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import portrait from "@/assets/braportafolio1-removebg-preview.png";
 import { useI18n } from "@/lib/i18n";
+import { DynamicBackground } from "./DynamicBackground";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40, filter: "blur(20px)" },
@@ -10,13 +11,14 @@ const fadeUp = {
 export function Hero() {
   const { t } = useI18n();
   return (
-    <section id="home" className="relative min-h-screen w-full overflow-hidden pt-24 pb-16 sm:pt-28 md:pt-40 md:pb-20">
+    <section id="home" className="relative min-h-screen w-full overflow-hidden pt-20 pb-16 sm:pt-24 md:pt-32 md:pb-20">
+      <DynamicBackground />
       {/* soft red glow */}
       <div className="pointer-events-none absolute -top-40 -right-20 h-[520px] w-[520px] rounded-full bg-[#E10600]/15 blur-[140px]" />
       <div className="pointer-events-none absolute top-1/3 -left-20 h-[380px] w-[380px] rounded-full bg-[#8B0000]/20 blur-[120px]" />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 sm:px-6 md:grid-cols-12 md:gap-16">
-        <div className="order-1 md:col-span-7">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 md:grid-cols-12 md:gap-16">
+        <div className="order-1 md:col-span-7 md:translate-y-[-8px]">
           <motion.div
             initial="initial"
             animate="animate"
@@ -33,7 +35,7 @@ export function Hero() {
             initial="initial"
             animate="animate"
             transition={{ delay: 2.35, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-4 font-display font-semibold leading-[0.82] text-[19vw] sm:text-[16vw] md:mt-6 md:text-[11vw] lg:text-[9.5rem]"
+            className="mt-2 font-display font-semibold leading-[0.78] text-[19vw] sm:text-[16vw] md:mt-2 md:text-[11vw] lg:text-[9.5rem]"
           >
             <span className="block">BRAYAN</span>
             <span className="block text-gradient-red">ALVAREZ</span>
@@ -44,7 +46,7 @@ export function Hero() {
             initial="initial"
             animate="animate"
             transition={{ delay: 2.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 font-display text-lg sm:text-xl md:mt-6 md:text-2xl text-white/90"
+            className="mt-3 font-display text-lg sm:text-xl md:mt-6 md:text-2xl text-white/90"
           >
             {t("hero.role")}
           </motion.p>
@@ -54,17 +56,37 @@ export function Hero() {
             initial="initial"
             animate="animate"
             transition={{ delay: 2.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-4 max-w-lg text-sm leading-relaxed text-[#B5B5B5] sm:text-base"
+            className="mt-3 max-w-lg text-sm leading-relaxed text-[#B5B5B5] sm:text-base"
           >
             {t("hero.desc")}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 2.45, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mt-4 md:hidden"
+          >
+            <div className="pointer-events-none absolute -inset-3 rounded-[2rem] border border-white/5" />
+            <div className="pointer-events-none absolute -inset-1 rounded-[2.2rem] border border-[#E10600]/20" />
+            <div className="relative mx-auto aspect-[3/4] w-[78%] max-w-[320px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#0e0e0e] p-1.5 shadow-[0_15px_40px_-24px_rgba(225,6,0,0.95)]">
+              <img
+                src={portrait}
+                alt="Bryan Alvarez"
+                width={912}
+                height={1200}
+                className="h-full w-full rounded-[1.55rem] object-cover"
+              />
+              <div className="pointer-events-none absolute inset-1.5 rounded-[1.55rem] bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+          </motion.div>
 
           <motion.div
             variants={fadeUp}
             initial="initial"
             animate="animate"
             transition={{ delay: 2.75, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center"
+            className="mt-5 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center md:mt-10"
           >
             <a
               href="#projects"
@@ -80,8 +102,8 @@ export function Hero() {
               {t("hero.cta2")}
             </a>
             <a
-              href="/cv.pdf"
-              download
+              href="/CV%20DESARROLLO%20ENGLISH%20BRYAN%20ALVAREZ.pdf"
+              download="CV DESARROLLO ENGLISH BRYAN ALVAREZ.pdf"
               target="_blank"
               rel="noreferrer"
               className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-6 py-3 text-sm font-semibold tracking-[0.18em] text-white backdrop-blur-md shadow-[0_10px_30px_-16px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:border-[#E10600]/70 hover:bg-[#E10600]/12 hover:shadow-[0_20px_50px_-20px_rgba(225,6,0,0.95)]"
@@ -98,7 +120,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ delay: 2.4, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative order-2 md:col-span-5"
+          className="relative order-2 hidden md:col-span-5 md:block"
         >
           {/* deco shapes */}
           <div className="pointer-events-none absolute -inset-6 md:-inset-10">
@@ -108,13 +130,13 @@ export function Hero() {
             <div className="absolute bottom-6 -right-8 h-32 w-32 rotate-12 border border-white/10" />
           </div>
 
-          <div className="relative mx-auto aspect-[3/4] w-[72%] max-w-[390px] overflow-hidden rounded-[2rem] glow-red sm:w-[74%] md:w-[104%] md:max-w-[720px] md:translate-y-4 md:translate-x-0 lg:w-[110%]">
+          <div className="relative mx-auto aspect-[3/4] w-[78%] max-w-[430px] overflow-hidden rounded-[2rem] glow-red sm:w-[82%] md:w-[119%] md:max-w-[765px] md:translate-y-4 md:translate-x-0 lg:w-[123%]">
             <img
               src={portrait}
               alt="Bryan Alvarez"
               width={912}
               height={1200}
-              className="h-full w-full object-contain transition-transform duration-[1.2s] hover:scale-[1.03]"
+              className="h-full w-full object-contain transition-transform duration-[1.2s] hover:scale-[1.04]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           </div>
