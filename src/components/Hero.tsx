@@ -17,8 +17,8 @@ export function Hero() {
       <div className="pointer-events-none absolute -top-40 -right-20 h-[520px] w-[520px] rounded-full bg-[#E10600]/15 blur-[140px]" />
       <div className="pointer-events-none absolute top-1/3 -left-20 h-[380px] w-[380px] rounded-full bg-[#8B0000]/20 blur-[120px]" />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 md:grid-cols-12 md:gap-16">
-        <div className="order-1 md:col-span-7 md:translate-y-[-8px]">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:grid-cols-12">
+        <div className="md:col-span-7">
           <motion.div
             initial="initial"
             animate="animate"
