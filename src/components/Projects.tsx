@@ -50,7 +50,7 @@ const projects: P[] = [
     link: "https://example.com/orbit-commerce",
   },
   {
-    title: "Aura Dashboard",
+    title: "FORMARESORTES LEGO SAS",
     desc: "Analytics dashboard with real-time visualisations.",
     tech: ["React", "TypeScript", "D3"],
     hue: "linear-gradient(135deg,#050505,#3d0d0d)",
