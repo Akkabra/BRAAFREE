@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import portrait from "@/assets/braportafolio1-removebg-preview.png";
+import portrait from "@/assets/braimagen6.jpg";
 import { useI18n } from "@/lib/i18n";
 import { DynamicBackground } from "./DynamicBackground";
 
