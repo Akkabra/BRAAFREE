@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BraFree - Freestyle Retro Hub</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            retro: ['Bungee', 'sans-serif'],
+            sans: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            vintageYellow: 'var(--color-yellow)',
+            vintageCream: 'var(--color-cream)',
+            vintageOrange: 'var(--color-orange)',
+            vintageBlue: 'var(--color-blue)',
+            vintageBlack: 'var(--color-black)',
+            vintageGreen: 'var(--color-green)'
+          },
+          borderWidth: {
+            '3': '3px',
+            '4': '4px',
+            '6': '6px',
+          },
+          boxShadow: {
+            'neo': '4px 4px 0px 0px var(--color-black)',
+            'neo-lg': '8px 8px 0px 0px var(--color-black)',
+            'neo-sm': '2px 2px 0px 0px var(--color-black)',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Temas de color dinámicos basados en variables CSS */
+    :root {
+      --color-yellow: #F3E5AB;
+      --color-cream: #FDFBF7;
+      --color-orange: #FF6B35;
+      --color-blue: #004E64;
+      --color-black: #1E1E24;
+      --color-green: #2EC4B6;
+    }
+    
+    .theme-psychedelic {
+      --color-yellow: #E0AAFF; 
+      --color-cream: #F7F0F5;  
+      --color-orange: #C77DFF;  
+      --color-blue: #3C096C;    
+      --color-black: #10002B;   
+      --color-green: #90E0EF;   
+    }
+
+    .theme-lofi {
+      --color-yellow: #FFCAD4; 
+      --color-cream: #FFF5F5;  
+      --color-orange: #F3C68F;  
+      --color-blue: #5F0F40;    
+      --color-black: #0F0F10;   
+      --color-green: #E29578;   
+    }
+
+    .theme-noir {
+      --color-yellow: #E5E5E5; 
+      --color-cream: #F8F9FA;  
+      --color-orange: #4A4A4A;  
+      --color-blue: #212529;    
+      --color-black: #000000;   
+      --color-green: #6C757D;   
+    }
+
+    .neo-border {
+      border: 3px solid var(--color-black);
+    }
+    .neo-btn {
+      transition: all 0.1s ease-in-out;
+    }
+    .neo-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px var(--color-black) !important;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-6px) rotate(1deg); }
+    }
+    .float-retro {
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(0.95); opacity: 0.5; }
+    }
+    .pulse-mic {
+      animation: pulse-ring 1.5s ease-in-out infinite;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-vintageCream text-vintageBlack min-h-screen font-sans flex flex-col selection:bg-vintageOrange selection:text-white overflow-x-hidden">
+
+  <!-- PANTALLA DE ACCESO (LOGIN DE MC) -->
+  <div id="login-screen" class="fixed inset-0 bg-vintageCream z-[200] flex flex-col items-center justify-center p-4 overflow-y-auto">
+    <div class="max-w-2xl w-full bg-vintageYellow p-6 sm:p-8 rounded-3xl border-4 border-vintageBlack shadow-neo-lg text-center flex flex-col gap-5 relative overflow-hidden my-auto">
+      
+      <!-- Diseños psicodélicos flotantes de fondo -->
+      <div class="absolute -top-10 -left-10 w-24 h-24 sm:w-32 sm:h-32 bg-vintageOrange/20 rounded-full"></div>
+      <div class="absolute -bottom-10 -right-10 w-24 h-24 sm:w-32 sm:h-32 bg-vintageGreen/20 rounded-full"></div>
+      
+      <!-- Logo Dinámico Seleccionado -->
+      <div id="login-logo-container" class="w-24 h-24 sm:w-28 sm:h-28 bg-white rounded-full border-4 border-vintageBlack p-1 shadow-neo mx-auto float-retro flex items-center justify-center overflow-hidden z-10">
+        <!-- Reemplazado dinámicamente por JavaScript -->
+      </div>
+
+      <div class="z-10">
+        <h2 class="font-retro text-3xl sm:text-4xl text-vintageBlack tracking-tight">BRAFREE</h2>
+        <p class="text-xs sm:text-sm font-bold text-vintageBlue -mt-1">Saca el Flow de los Años 60</p>
+      </div>
+
+      <div class="flex flex-col gap-4 text-left z-10">
+        <div>
+          <label class="font-retro text-[10px] text-vintageOrange block mb-1">INGRESA TU APODO DE MC:</label>
+          <input type="text" id="login-mc-name" placeholder="Ej: MC Huesos, RapPug..." class="w-full p-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm outline-none font-bold text-sm bg-white focus:border-vintageOrange" />
+        </div>
+        
+        <div>
+          <label class="font-retro text-[10px] text-vintageOrange block mb-2 text-center sm:text-left">SELECCIONA TU AVATAR DE LA VIEJA ESCUELA (8 OPCIONES):</label>
+          
+          <!-- Parrilla de 8 avatares responsiva -->
+          <div class="grid grid-cols-4 sm:grid-cols-8 gap-2">
+            <button onclick="selectAvatar('buster')" id="avatar-select-buster" class="avatar-option border-3 border-vintageBlack rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all scale-105 shadow-neo-sm">
+              <div class="w-full h-auto" id="svg-opt-buster"></div>
+            </button>
+            <button onclick="selectAvatar('duque')" id="avatar-select-duque" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-duque"></div>
+            </button>
+            <button onclick="selectAvatar('luna')" id="avatar-select-luna" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-luna"></div>
+            </button>
+            <button onclick="selectAvatar('bboy')" id="avatar-select-bboy" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-bboy"></div>
+            </button>
+            
+            <!-- Nuevos personajes sesenteros -->
+            <button onclick="selectAvatar('cocodrilo')" id="avatar-select-cocodrilo" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-cocodrilo"></div>
+            </button>
+            <button onclick="selectAvatar('ornitorrinco')" id="avatar-select-ornitorrinco" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-ornitorrinco"></div>
+            </button>
+            <button onclick="selectAvatar('hipopotamo')" id="avatar-select-hipopotamo" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-hipopotamo"></div>
+            </button>
+            <button onclick="selectAvatar('cuervo')" id="avatar-select-cuervo" class="avatar-option border-3 border-slate-300 rounded-xl p-1 bg-white hover:bg-vintageYellow transition-all">
+              <div class="w-full h-auto" id="svg-opt-cuervo"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="loginUser()" class="neo-btn bg-vintageGreen hover:bg-emerald-400 text-vintageBlack font-retro text-sm py-3.5 sm:py-4 rounded-xl border-3 border-vintageBlack shadow-neo-sm w-full z-10">
+        ¡ENTRAR AL ESTUDIO!
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL DE LA APP -->
+  <div id="main-app" class="hidden flex-grow flex flex-col w-full">
+    
+    <!-- CABECERA PRINCIPAL -->
+    <header class="bg-vintageYellow border-b-4 border-vintageBlack p-3 sm:p-4 sticky top-0 z-50 shadow-md w-full">
+      <div class="max-w-6xl mx-auto flex flex-col gap-3">
+        
+        <!-- Fila de Identificación y Beats -->
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <!-- Avatar dinámico del MC -->
+            <div id="header-avatar" class="w-11 h-11 sm:w-14 sm:h-14 bg-white rounded-full border-3 border-vintageBlack p-0.5 shadow-neo flex items-center justify-center overflow-hidden flex-shrink-0">
+              <!-- Cargado dinámicamente -->
+            </div>
+            <div>
+              <h1 class="font-retro text-xl sm:text-2xl md:text-3xl tracking-tight text-vintageBlack flex items-center gap-1.5 leading-none">
+                BraFree <span class="text-[9px] sm:text-xs bg-vintageOrange text-white px-1.5 py-0.5 rounded-full font-sans border-2 border-vintageBlack">60s</span>
+              </h1>
+              <p class="text-[10px] sm:text-xs font-bold text-vintageBlue mt-0.5 flex items-center gap-1 flex-wrap">
+                <span id="header-mc-title" class="bg-vintageBlue text-white px-1.5 py-0.5 rounded text-[8px] font-retro">MC NOVATO</span>
+                <span id="header-mc-display-name" class="text-vintageOrange font-retro text-[10px] sm:text-xs">MC RAW</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Estación de Beats & Salir -->
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <div class="hidden md:flex items-center gap-3 bg-white p-2 rounded-xl border-3 border-vintageBlack shadow-neo text-sm">
+              <span class="font-retro text-xs text-vintageOrange animate-pulse flex items-center gap-1">
+                <i class="fa-solid fa-compact-disc"></i> BEAT:
+              </span>
+              <select id="beat-selector" class="bg-vintageCream border-2 border-vintageBlack rounded-md p-1 text-xs font-bold outline-none cursor-pointer">
+                <option value="boombap">Boom Bap (60s Jazz)</option>
+                <option value="lofi">Lofi Atardecer</option>
+                <option value="trap">Retro Trap</option>
+              </select>
+              <div class="flex items-center gap-1 font-bold text-xs">
+                <span>BPM:</span>
+                <input type="number" id="beat-bpm" value="90" min="60" max="140" class="w-12 bg-vintageCream border-2 border-vintageBlack text-center rounded-md p-0.5 text-xs font-bold" />
+              </div>
+              <button id="beat-toggle-btn" class="neo-btn bg-vintageGreen hover:bg-emerald-400 text-vintageBlack px-3 py-1 rounded-lg border-2 border-vintageBlack shadow-neo-sm font-retro text-xs">
+                PLAY
+              </button>
+            </div>
+
+            <button onclick="logoutUser()" class="neo-btn bg-red-500 hover:bg-red-400 text-white p-2.5 sm:px-4 sm:py-2.5 rounded-xl border-3 border-vintageBlack shadow-neo-sm font-retro text-xs flex items-center gap-1.5" title="Cerrar Sesión">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span class="hidden sm:inline">SALIR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Consola de ritmos móvil -->
+        <div class="md:hidden flex items-center justify-between gap-2 bg-white p-2 rounded-xl border-3 border-vintageBlack shadow-neo text-xs">
+          <div class="flex items-center gap-1">
+            <span class="font-retro text-[9px] text-vintageOrange"><i class="fa-solid fa-compact-disc"></i> BASE:</span>
+            <select id="beat-selector-mobile" onchange="syncBeatSelectors(this)" class="bg-vintageCream border-2 border-vintageBlack rounded p-0.5 text-[10px] font-bold">
+              <option value="boombap">Boom Bap</option>
+              <option value="lofi">Lofi</option>
+              <option value="trap">Trap</option>
+            </select>
+          </div>
+          <button id="beat-toggle-btn-mobile" onclick="toggleBeat()" class="neo-btn bg-vintageGreen hover:bg-emerald-400 text-vintageBlack px-3 py-1 rounded border-2 border-vintageBlack text-[10px] font-retro">
+            PLAY RITMO
+          </button>
+        </div>
+
+        <!-- BARRA DE NAVEGACIÓN RETRO -->
+        <nav class="bg-vintageBlue p-1.5 rounded-2xl border-3 border-vintageBlack shadow-neo flex items-center overflow-x-auto no-scrollbar gap-2 scroll-smooth w-full select-none">
+          <button onclick="switchMode('oracion')" id="btn-mode-oracion" class="mode-select-btn neo-btn flex-shrink-0 px-3.5 py-2 rounded-xl border-2 border-vintageBlack font-retro text-[10px] sm:text-xs tracking-wide flex items-center gap-2 bg-vintageOrange text-white shadow-neo-sm whitespace-nowrap">
+            <i class="fa-solid fa-comment-dots"></i> COMPLETA ORACIÓN
+          </button>
+
+          <button onclick="switchMode('palabras')" id="btn-mode-palabras" class="mode-select-btn neo-btn flex-shrink-0 px-3.5 py-2 rounded-xl border-2 border-vintageBlack font-retro text-[10px] sm:text-xs tracking-wide flex items-center gap-2 bg-white text-vintageBlack hover:bg-vintageYellow shadow-neo-sm whitespace-nowrap">
+            <i class="fa-solid fa-shuffle"></i> PALABRAS AL VIENTO
+          </button>
+
+          <button onclick="switchMode('estimulo')" id="btn-mode-estimulo" class="mode-select-btn neo-btn flex-shrink-0 px-3.5 py-2 rounded-xl border-2 border-vintageBlack font-retro text-[10px] sm:text-xs tracking-wide flex items-center gap-2 bg-white text-vintageBlack hover:bg-vintageYellow shadow-neo-sm whitespace-nowrap">
+            <i class="fa-solid fa-image"></i> ESTÍMULO VISUAL (IA)
+          </button>
+
+          <button onclick="switchMode('batalla')" id="btn-mode-batalla" class="mode-select-btn neo-btn flex-shrink-0 px-3.5 py-2 rounded-xl border-2 border-vintageBlack font-retro text-[10px] sm:text-xs tracking-wide flex items-center gap-2 bg-white text-vintageBlack hover:bg-vintageYellow shadow-neo-sm whitespace-nowrap">
+            <i class="fa-solid fa-microphone"></i> BATALLA CON BUSTER
+          </button>
+
+          <button onclick="switchMode('perfil')" id="btn-mode-perfil" class="mode-select-btn neo-btn flex-shrink-0 px-3.5 py-2 rounded-xl border-2 border-vintageBlack font-retro text-[10px] sm:text-xs tracking-wide flex items-center gap-2 bg-white text-vintageBlack hover:bg-vintageYellow shadow-neo-sm whitespace-nowrap">
+            <i class="fa-solid fa-sliders"></i> PERFIL & AJUSTES
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ÁREA DE CONTENIDO -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-12 gap-6 my-2">
+      
+      <!-- CONTENIDO INTERACTIVO CENTRAL -->
+      <section class="order-1 lg:order-2 lg:col-span-9 flex flex-col gap-6 w-full min-w-0">
+        
+        <!-- ACTIVIDAD 1: COMPLETA LA ORACIÓN -->
+        <div id="panel-oracion" class="mode-panel bg-white p-4 sm:p-6 rounded-3xl border-4 border-vintageBlack shadow-neo flex flex-col gap-5">
+          <div class="flex justify-between items-start flex-wrap gap-3">
+            <div class="min-w-0">
+              <span class="bg-vintageOrange text-white font-retro text-[9px] sm:text-xs px-2.5 py-1 rounded-full border-2 border-vintageBlack shadow-neo-sm">ACTIVIDAD 1</span>
+              <h2 class="font-retro text-2xl sm:text-3xl mt-1.5 text-vintageBlack leading-tight">COMPLETA LA ORACIÓN</h2>
+              <p class="text-xs sm:text-sm font-bold text-vintageBlue mt-1">Lanza el mejor remate que rime con la palabra clave antes de que se agote el tiempo.</p>
+            </div>
+            <div class="flex items-center gap-2 ml-auto">
+              <div class="bg-vintageYellow border-3 border-vintageBlack p-1.5 rounded-xl text-center shadow-neo-sm min-w-[55px]">
+                <span class="text-[8px] sm:text-[10px] font-bold block leading-none">RELOJ</span>
+                <span id="oracion-timer" class="font-retro text-lg sm:text-2xl">30</span>
+              </div>
+              <div class="bg-vintageGreen border-3 border-vintageBlack p-1.5 rounded-xl text-center shadow-neo-sm min-w-[55px]">
+                <span class="text-[8px] sm:text-[10px] font-bold block leading-none">PUNTOS</span>
+                <span id="oracion-score" class="font-retro text-lg sm:text-2xl">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-vintageCream p-4 sm:p-6 rounded-2xl border-3 border-vintageBlack shadow-neo flex flex-col items-center justify-center text-center gap-3 min-h-[140px] relative overflow-hidden">
+            <span class="text-[9px] sm:text-xs uppercase tracking-widest font-bold text-vintageOrange"><i class="fa-solid fa-quote-left"></i> Frase Inicial</span>
+            <p id="oracion-prompt" class="font-retro text-base sm:text-xl md:text-2xl text-vintageBlue max-w-2xl px-2">"Ayer salí a la calle buscando inspiración..."</p>
+            <div class="flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border-2 border-vintageBlack shadow-neo-sm mt-1">
+              <span class="text-[9px] sm:text-xs font-bold text-vintageBlack">DEBE RIMAR CON:</span>
+              <span id="oracion-target-word" class="font-retro text-xs sm:text-sm text-vintageOrange">CORAZÓN</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2.5">
+            <label class="font-bold text-xs sm:text-sm text-vintageBlack flex items-center justify-between">
+              <span>Escribe tu barra final o dicta con tu voz:</span>
+              <span id="oracion-speech-indicator" class="text-xs text-vintageOrange font-bold flex items-center gap-1 hidden">
+                <span class="w-2.5 h-2.5 bg-vintageOrange rounded-full pulse-mic"></span> CAPTURANDO FLOW...
+              </span>
+            </label>
+            <div class="flex gap-2 sm:gap-3">
+              <button onclick="toggleSpeechRecognition('oracion-input', 'oracion-speech-indicator')" class="neo-btn bg-vintageYellow hover:bg-amber-300 text-vintageBlack p-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm flex items-center justify-center min-w-[48px] h-12 sm:h-14 flex-shrink-0">
+                <i id="mic-icon-oracion" class="fa-solid fa-microphone text-lg text-vintageOrange"></i>
+              </button>
+              <input type="text" id="oracion-input" placeholder="Rapea tu línea final..." class="w-full p-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm outline-none focus:border-vintageOrange font-bold text-sm bg-vintageCream h-12 sm:h-14 min-w-0" />
+              <button onclick="checkOracionAnswer()" class="neo-btn bg-vintageGreen hover:bg-emerald-400 text-vintageBlack font-retro text-xs sm:text-sm px-4 rounded-xl border-3 border-vintageBlack shadow-neo-sm h-12 sm:h-14">
+                ¡CALIFICAR!
+              </button>
+            </div>
+            <div class="flex justify-between items-center text-[10px] sm:text-xs font-bold mt-1 text-vintageBlue">
+              <span>Usa ENTER para calificar de inmediato.</span>
+              <button onclick="generateNewOracion()" class="text-vintageOrange hover:underline"><i class="fa-solid fa-rotate-right"></i> Saltar frase</button>
+            </div>
+          </div>
+
+          <div class="border-t-3 border-dashed border-vintageBlack pt-4">
+            <h4 class="font-retro text-[10px] text-vintageOrange mb-2">ÚLTIMA BARRA CALIFICADA</h4>
+            <div id="oracion-history" class="bg-vintageYellow/30 p-3 rounded-lg border-2 border-vintageBlack text-xs font-semibold italic text-slate-700">
+              No has calificado ninguna barra en esta sesión. ¡Rapea!
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVIDAD 2: PALABRAS AL VIENTO -->
+        <div id="panel-palabras" class="mode-panel bg-white p-4 sm:p-6 rounded-3xl border-4 border-vintageBlack shadow-neo flex flex-col gap-5 hidden">
+          <div class="flex justify-between items-start flex-wrap gap-3">
+            <div>
+              <span class="bg-vintageOrange text-white font-retro text-[9px] sm:text-xs px-2.5 py-1 rounded-full border-2 border-vintageBlack shadow-neo-sm">ACTIVIDAD 2</span>
+              <h2 class="font-retro text-2xl sm:text-3xl mt-1.5 text-vintageBlack leading-tight">PALABRAS AL VIENTO</h2>
+              <p class="text-xs sm:text-sm font-bold text-vintageBlue mt-1">Improvisa integrando las palabras que aparecen antes de que se acabe el tiempo.</p>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-bold">Cambio:</span>
+              <select id="palabras-interval" onchange="resetPalabrasTimer()" class="bg-vintageYellow border-3 border-vintageBlack rounded-xl p-1.5 font-retro text-[10px] outline-none cursor-pointer">
+                <option value="5">5s (Veloz)</option>
+                <option value="10" selected>10s (Normal)</option>
+                <option value="15">15s (Suave)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <div class="md:col-span-8 bg-vintageYellow p-6 sm:p-8 rounded-2xl border-3 border-vintageBlack shadow-neo flex flex-col items-center justify-center text-center relative min-h-[180px]">
+              <span class="absolute top-3 left-3 text-[9px] font-retro text-vintageOrange/50">INTEGRA ESTA PALABRA:</span>
+              <h1 id="palabras-current" class="font-retro text-4xl sm:text-5xl md:text-6xl text-vintageBlack tracking-wide uppercase break-all px-2 w-full">ESTRELLA</h1>
+              <div class="w-full bg-vintageCream h-3 rounded-full border-2 border-vintageBlack overflow-hidden mt-6 max-w-xs">
+                <div id="palabras-progress" class="bg-vintageOrange h-full w-full transition-all duration-100 ease-linear"></div>
+              </div>
+            </div>
+
+            <div class="md:col-span-4 flex flex-col justify-between bg-vintageCream p-4 rounded-2xl border-3 border-vintageBlack shadow-neo">
+              <div>
+                <span class="text-[10px] font-retro text-vintageBlue block mb-2"><i class="fa-solid fa-forward"></i> SIGUIENTES:</span>
+                <div class="space-y-1.5">
+                  <div id="palabra-next-1" class="bg-white px-3 py-1.5 rounded-lg border-2 border-vintageBlack font-bold text-xs text-slate-700">Ciudad</div>
+                  <div id="palabra-next-2" class="bg-white px-3 py-1.5 rounded-lg border-2 border-vintageBlack font-bold text-xs text-slate-400">Destino</div>
+                  <div id="palabra-next-3" class="bg-white px-3 py-1.5 rounded-lg border-2 border-vintageBlack font-bold text-xs text-slate-300">Asfalto</div>
+                </div>
+              </div>
+              <button onclick="triggerNextWord()" class="neo-btn bg-vintageOrange text-white font-retro text-[10px] py-2 rounded-xl border-2 border-vintageBlack shadow-neo-sm mt-4 w-full">
+                SALTAR PALABRA <i class="fa-solid fa-angles-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-vintageCream/60 p-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm">
+            <h4 class="font-retro text-[10px] text-vintageBlue mb-1.5">Añadir palabras al mazo:</h4>
+            <div class="flex gap-2">
+              <input type="text" id="palabra-custom-input" placeholder="Ej: Raperos, Radio, Barrio..." class="w-full p-2 rounded-lg border-2 border-vintageBlack text-xs font-bold outline-none" />
+              <button onclick="addCustomWords()" class="neo-btn bg-vintageGreen text-vintageBlack font-retro text-[10px] px-3.5 rounded-lg border-2 border-vintageBlack shadow-neo-sm">
+                AGREGAR
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVIDAD 3: ESTÍMULO VISUAL (IA) -->
+        <div id="panel-estimulo" class="mode-panel bg-white p-4 sm:p-6 rounded-3xl border-4 border-vintageBlack shadow-neo flex flex-col gap-5 hidden">
+          <div>
+            <span class="bg-vintageOrange text-white font-retro text-[9px] sm:text-xs px-2.5 py-1 rounded-full border-2 border-vintageBlack shadow-neo-sm">ACTIVIDAD 3</span>
+            <h2 class="font-retro text-2xl sm:text-3xl mt-1.5 text-vintageBlack leading-tight">ESTÍMULO VISUAL IA</h2>
+            <p class="text-xs sm:text-sm font-bold text-vintageBlue mt-1">Improvisa libremente guiado por una pintura conceptual psicodélica y sesentera.</p>
+          </div>
+
+          <div class="relative bg-vintageCream rounded-2xl border-3 border-vintageBlack shadow-neo overflow-hidden aspect-video w-full flex flex-col items-center justify-center max-h-[300px]">
+            <div id="image-loading-overlay" class="absolute inset-0 bg-vintageCream/95 z-20 flex flex-col items-center justify-center gap-2.5 p-4 hidden">
+              <i class="fa-solid fa-spinner animate-spin text-3xl text-vintageOrange"></i>
+              <span class="font-retro text-xs text-vintageBlack">Buster está pintando tu estímulo retro...</span>
+            </div>
+
+            <img id="stimulus-img" src="" alt="Estímulo visual" class="w-full h-full object-cover hidden" />
+            
+            <div id="img-placeholder" class="text-center p-4 flex flex-col items-center justify-center gap-3">
+              <i class="fa-solid fa-wand-magic-sparkles text-4xl text-vintageOrange float-retro"></i>
+              <span class="font-retro text-sm sm:text-base text-vintageBlack">¿Listo para un viaje visual?</span>
+              <p class="text-[10px] sm:text-xs font-bold text-vintageBlue max-w-xs leading-relaxed">Generaremos una ilustración retro por IA inspirada en conceptos aleatorios.</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center flex-wrap gap-3">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-[10px] font-bold text-vintageBlue flex-shrink-0">ESTÍMULO:</span>
+              <span id="current-concept" class="bg-vintageYellow font-retro text-[10px] px-2.5 py-1 rounded-lg border-2 border-vintageBlack shadow-neo-sm truncate max-w-xs">¡AÚN NADA!</span>
+            </div>
+            <button onclick="generateVisualStimulus()" class="neo-btn bg-vintageGreen text-vintageBlack font-retro text-[10px] px-4 py-2.5 rounded-xl border-3 border-vintageBlack shadow-neo-sm w-full sm:w-auto">
+              <i class="fa-solid fa-image"></i> GENERAR ILUSTRACIÓN
+            </button>
+          </div>
+        </div>
+
+        <!-- ACTIVIDAD 4: BATALLA CONTRA BUSTER -->
+        <div id="panel-batalla" class="mode-panel bg-white p-4 sm:p-6 rounded-3xl border-4 border-vintageBlack shadow-neo flex flex-col gap-4 hidden">
+          <div>
+            <span class="bg-vintageOrange text-white font-retro text-[9px] sm:text-xs px-2.5 py-1 rounded-full border-2 border-vintageBlack shadow-neo-sm">ACTIVIDAD 4</span>
+            <h2 class="font-retro text-2xl sm:text-3xl mt-1.5 text-vintageBlack leading-tight">BATALLA CON BUSTER</h2>
+            <p class="text-xs sm:text-sm font-bold text-vintageBlue mt-1">Duelo de hip-hop sesentero. Escribe o usa tu micrófono y el pug responderá con rimas y flow perruno.</p>
+          </div>
+
+          <div id="battle-chat" class="bg-vintageCream p-3.5 rounded-2xl border-3 border-vintageBlack shadow-neo min-h-[220px] max-h-[300px] overflow-y-auto space-y-3">
+            <!-- Se llena dinámicamente -->
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="font-bold text-xs sm:text-sm text-vintageBlack flex items-center justify-between">
+              <span>Rapea tu ataque:</span>
+              <span id="battle-speech-indicator" class="text-xs text-vintageOrange font-bold flex items-center gap-1 hidden">
+                <span class="w-2.5 h-2.5 bg-vintageOrange rounded-full pulse-mic"></span> ESCUCHANDO TU VOZ...
+              </span>
+            </label>
+            <div class="flex gap-2 sm:gap-3">
+              <button onclick="toggleSpeechRecognition('battle-input', 'battle-speech-indicator')" class="neo-btn bg-vintageYellow hover:bg-amber-300 text-vintageBlack p-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm flex items-center justify-center min-w-[48px] h-12 sm:h-14 flex-shrink-0">
+                <i id="mic-icon-battle" class="fa-solid fa-microphone text-lg text-vintageOrange"></i>
+              </button>
+              <input type="text" id="battle-input" placeholder="Inserta tu ataque de freestyle..." class="w-full p-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm outline-none bg-vintageCream font-bold text-xs sm:text-sm h-12 sm:h-14 min-w-0" />
+              <button onclick="sendBattleTurn()" id="btn-battle-send" class="neo-btn bg-vintageOrange text-white font-retro text-xs sm:text-sm px-4 rounded-xl border-3 border-vintageBlack shadow-neo-sm h-12 sm:h-14">
+                ENVIAR
+              </button>
+            </div>
+            <div class="flex justify-between items-center text-[10px] sm:text-xs font-bold text-vintageBlue">
+              <span>Buster responde en cuartetas clásicas.</span>
+              <button onclick="clearBattle()" class="text-vintageOrange hover:underline"><i class="fa-solid fa-trash-can"></i> Reiniciar asalto</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PERFIL & AJUSTES -->
+        <div id="panel-perfil" class="mode-panel bg-white p-4 sm:p-6 rounded-3xl border-4 border-vintageBlack shadow-neo flex flex-col gap-6 hidden">
+          <div>
+            <span class="bg-vintageOrange text-white font-retro text-[9px] sm:text-xs px-2.5 py-1 rounded-full border-2 border-vintageBlack shadow-neo-sm">PERFIL DE MC</span>
+            <h2 class="font-retro text-2xl sm:text-3xl mt-1.5 text-vintageBlack leading-tight">PERFIL & AJUSTES</h2>
+            <p class="text-xs sm:text-sm font-bold text-vintageBlue mt-1">Personaliza tu avatar, cambia el tema visual y revisa tus estadísticas en el asfalto.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Estadísticas & Personalización General -->
+            <div class="bg-vintageCream p-4 rounded-2xl border-3 border-vintageBlack shadow-neo flex flex-col gap-4">
+              <h3 class="font-retro text-sm text-vintageOrange"><i class="fa-solid fa-chart-simple"></i> MIS ESTADÍSTICAS</h3>
+              
+              <div class="space-y-2">
+                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border-2 border-vintageBlack text-xs font-bold">
+                  <span>Puntos Acumulados:</span>
+                  <span id="profile-stat-score" class="font-retro text-vintageOrange">0 pts</span>
+                </div>
+                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border-2 border-vintageBlack text-xs font-bold">
+                  <span>Barras Calificadas:</span>
+                  <span id="profile-stat-bars" class="font-retro text-vintageBlue">0 rimas</span>
+                </div>
+                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border-2 border-vintageBlack text-xs font-bold">
+                  <span>Rango de MC:</span>
+                  <span id="profile-stat-title" class="font-retro text-vintageGreen">MC NOVATO</span>
+                </div>
+              </div>
+
+              <!-- Biografía Rapera -->
+              <div class="flex flex-col gap-1.5 mt-2">
+                <label class="font-retro text-[10px] text-vintageBlue">FIRMA / BIO RAPERA:</label>
+                <textarea id="profile-bio" rows="2" placeholder="Escribe tu lema de rap aquí..." class="w-full p-2.5 rounded-lg border-2 border-vintageBlack text-xs font-bold bg-white focus:outline-none focus:border-vintageOrange"></textarea>
+                <button onclick="saveProfileBio()" class="neo-btn bg-vintageGreen text-vintageBlack font-retro text-[10px] py-2 rounded-lg border-2 border-vintageBlack shadow-neo-sm mt-1">
+                  GUARDAR FIRMA
+                </button>
+              </div>
+            </div>
+
+            <!-- Avatar & Temas Visuales -->
+            <div class="bg-vintageCream p-4 rounded-2xl border-3 border-vintageBlack shadow-neo flex flex-col gap-4">
+              <h3 class="font-retro text-sm text-vintageOrange"><i class="fa-solid fa-palette"></i> APARIENCIA & TEMA</h3>
+              
+              <!-- Selector de Temas -->
+              <div class="flex flex-col gap-2">
+                <label class="font-retro text-[10px] text-vintageBlue">SELECCIONAR TEMA DE LA APP:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="changeTheme('classic')" class="neo-btn bg-amber-200 text-vintageBlack border-2 border-vintageBlack font-bold text-[10px] py-2 rounded-lg shadow-neo-sm">
+                    60s Clásico
+                  </button>
+                  <button onclick="changeTheme('psychedelic')" class="neo-btn bg-indigo-300 text-vintageBlack border-2 border-vintageBlack font-bold text-[10px] py-2 rounded-lg shadow-neo-sm">
+                    Psicodelia Pop
+                  </button>
+                  <button onclick="changeTheme('lofi')" class="neo-btn bg-rose-200 text-vintageBlack border-2 border-vintageBlack font-bold text-[10px] py-2 rounded-lg shadow-neo-sm">
+                    Atardecer Lofi
+                  </button>
+                  <button onclick="changeTheme('noir')" class="neo-btn bg-slate-300 text-vintageBlack border-2 border-vintageBlack font-bold text-[10px] py-2 rounded-lg shadow-neo-sm">
+                    Noir Callejero
+                  </button>
+                </div>
+              </div>
+
+              <!-- Cambio de avatar desde perfil -->
+              <div class="flex flex-col gap-2 mt-2">
+                <label class="font-retro text-[10px] text-vintageBlue">CAMBIAR MI AVATAR:</label>
+                
+                <div class="grid grid-cols-4 gap-2">
+                  <button onclick="selectAvatar('buster')" id="profile-avatar-buster" class="avatar-option border-2 border-vintageBlack rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-buster"></div>
+                  </button>
+                  <button onclick="selectAvatar('duque')" id="profile-avatar-duque" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-duque"></div>
+                  </button>
+                  <button onclick="selectAvatar('luna')" id="profile-avatar-luna" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-luna"></div>
+                  </button>
+                  <button onclick="selectAvatar('bboy')" id="profile-avatar-bboy" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-bboy"></div>
+                  </button>
+                  
+                  <button onclick="selectAvatar('cocodrilo')" id="profile-avatar-cocodrilo" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-cocodrilo"></div>
+                  </button>
+                  <button onclick="selectAvatar('ornitorrinco')" id="profile-avatar-ornitorrinco" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-ornitorrinco"></div>
+                  </button>
+                  <button onclick="selectAvatar('hipopotamo')" id="profile-avatar-hipopotamo" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-hipopotamo"></div>
+                  </button>
+                  <button onclick="selectAvatar('cuervo')" id="profile-avatar-cuervo" class="avatar-option border-2 border-slate-300 rounded-lg p-1 bg-white hover:bg-vintageYellow">
+                    <div class="w-full h-auto" id="svg-prof-cuervo"></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- BARRA LATERAL: CONTROL DE ESTADO -->
+      <section class="order-2 lg:order-1 lg:col-span-3 flex flex-col gap-4 w-full">
+        
+        <!-- Tarjeta de Mascota de Buster -->
+        <div class="bg-vintageYellow p-4 rounded-2xl border-4 border-vintageBlack shadow-neo flex flex-col items-center text-center relative overflow-hidden">
+          <div class="absolute -top-3 -right-3 w-14 h-14 bg-vintageOrange border-4 border-vintageBlack rounded-full flex items-center justify-center text-white font-retro text-[10px] rotate-12">
+            PULSE
+          </div>
+          <div class="w-24 h-24 sm:w-28 sm:h-28 float-retro my-1.5">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <ellipse cx="50" cy="55" rx="35" ry="30" fill="#E6C280" stroke="#1E1E24" stroke-width="3" />
+              <path d="M18 35 C10 25, 12 50, 22 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3" />
+              <path d="M82 35 C90 25, 88 50, 78 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3" />
+              <ellipse cx="50" cy="65" rx="18" ry="14" fill="#4B3621" stroke="#1E1E24" stroke-width="2" />
+              <circle cx="34" cy="46" r="14" fill="#000" stroke="#1E1E24" stroke-width="3" />
+              <circle cx="34" cy="46" r="10" fill="#FFD700" />
+              <circle cx="66" cy="46" r="14" fill="#000" stroke="#1E1E24" stroke-width="3" />
+              <circle cx="66" cy="46" r="10" fill="#FFD700" />
+              <line x1="47" y1="46" x2="53" y2="46" stroke="#1E1E24" stroke-width="3" />
+              <path d="M22 28 C22 15, 78 15, 78 28 Z" fill="#FF6B35" stroke="#1E1E24" stroke-width="3" />
+              <rect x="18" y="26" width="64" height="6" rx="3" fill="#2EC4B6" stroke="#1E1E24" stroke-width="3" />
+              <circle cx="75" cy="80" r="8" fill="#888" stroke="#1E1E24" stroke-width="2" />
+              <rect x="71" y="80" width="8" height="15" fill="#333" stroke="#1E1E24" stroke-width="2" />
+            </svg>
+          </div>
+          <h3 class="font-retro text-base sm:text-lg mt-1">Buster the Pug</h3>
+          <p class="text-[11px] sm:text-xs font-bold text-vintageBlue max-w-[200px] leading-snug">"Usa la barra de arriba para alternar tus actividades de asfalto rápidamente."</p>
+        </div>
+
+        <!-- Conexión de Voz -->
+        <div class="bg-white p-4 rounded-2xl border-4 border-vintageBlack shadow-neo flex flex-col gap-2">
+          <h4 class="font-retro text-[10px] sm:text-xs text-vintageOrange mb-1"><i class="fa-solid fa-wave-square"></i> CONEXIÓN DE VOZ</h4>
+          <div class="flex items-center justify-between bg-vintageCream p-2 rounded-xl border-2 border-vintageBlack text-[11px] sm:text-xs font-bold">
+            <span>MIC:</span>
+            <span id="mic-status-badge" class="bg-red-500 text-white px-2 py-0.5 rounded-md text-[9px] font-retro tracking-wider">INACTIVO</span>
+          </div>
+        </div>
+
+        <!-- Tip rápido -->
+        <div class="bg-vintageBlue text-white p-4 rounded-2xl border-4 border-vintageBlack shadow-neo text-[11px] sm:text-xs space-y-1.5">
+          <h5 class="font-retro text-vintageYellow"><i class="fa-solid fa-lightbulb"></i> TIPS DE BUSTER</h5>
+          <p class="font-medium leading-relaxed">¿Sabías que puedes cambiar el fondo y los colores desde el panel de **Perfil & Ajustes**? Saca tu mejor vibra.</p>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-vintageBlack text-vintageCream py-6 sm:py-8 mt-auto border-t-4 border-vintageBlack w-full">
+      <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <div>
+          <h4 class="font-retro text-base sm:text-lg text-vintageYellow">BraFree © 2026</h4>
+          <p class="text-[10px] sm:text-xs text-slate-400">La fusión de la época dorada de los 60s con el hip-hop del siglo XXI.</p>
+        </div>
+        <div class="flex gap-4">
+          <a href="#" class="text-vintageYellow hover:text-white transition"><i class="fa-brands fa-instagram text-lg sm:text-xl"></i></a>
+          <a href="#" class="text-vintageYellow hover:text-white transition"><i class="fa-brands fa-tiktok text-lg sm:text-xl"></i></a>
+          <a href="#" class="text-vintageYellow hover:text-white transition"><i class="fa-brands fa-youtube text-lg sm:text-xl"></i></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL DE ALERTA RETRO -->
+  <div id="custom-modal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-[250] flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl border-4 border-vintageBlack p-5 sm:p-6 max-w-sm w-full shadow-neo-lg text-center flex flex-col gap-4 my-auto relative">
+      <div class="w-16 h-16 bg-vintageYellow rounded-full border-3 border-vintageBlack flex items-center justify-center mx-auto float-retro">
+        <i id="modal-icon" class="fa-solid fa-trophy text-2xl text-vintageOrange"></i>
+      </div>
+      <h3 id="modal-title" class="font-retro text-xl text-vintageBlack leading-tight">¡Título!</h3>
+      <p id="modal-desc" class="text-xs font-bold text-vintageBlue leading-relaxed">Descripción.</p>
+      <button onclick="closeCustomModal()" class="neo-btn bg-vintageOrange text-white font-retro text-xs py-3 rounded-xl border-3 border-vintageBlack shadow-neo-sm w-full mt-1">
+        ¡VOLVER AL RITMO!
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // --- INTEGRACIÓN Y PETICIONES GEMINI ---
+    const apiKey = ""; 
+
+    async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) return await response.json();
+          if (response.status === 429) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2;
+            continue;
+          }
+          throw new Error(`API respondió con estado: ${response.status}`);
+        } catch (error) {
+          if (i === retries - 1) throw error;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    // --- AVATARES DISPONIBLES EN SVG (ESTILO CARTOON SESENTERO) ---
+    const AVATARS = {
+      buster: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="55" rx="35" ry="30" fill="#E6C280" stroke="#1E1E24" stroke-width="4"/><path d="M18 35 C10 25, 12 50, 22 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><path d="M82 35 C90 25, 88 50, 78 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><ellipse cx="50" cy="65" rx="18" ry="14" fill="#4B3621" stroke="#1E1E24" stroke-width="2"/><circle cx="34" cy="46" r="12" fill="#000" stroke="#1E1E24" stroke-width="3"/><circle cx="34" cy="46" r="9" fill="#FFD700"/><circle cx="66" cy="46" r="12" fill="#000" stroke="#1E1E24" stroke-width="3"/><circle cx="66" cy="46" r="9" fill="#FFD700"/><line x1="47" y1="46" x2="53" y2="46" stroke="#1E1E24" stroke-width="3"/></svg>`,
+      duque: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="55" rx="35" ry="30" fill="#E6C280" stroke="#1E1E24" stroke-width="4"/><path d="M18 35 C10 25, 12 50, 22 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><path d="M82 35 C90 25, 88 50, 78 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><ellipse cx="50" cy="65" rx="18" ry="14" fill="#4B3621" stroke="#1E1E24" stroke-width="2"/><rect x="35" y="12" width="30" height="20" fill="#1E1E24" stroke="#1E1E24" stroke-width="2"/><rect x="28" y="30" width="44" height="4" fill="#1E1E24"/><circle cx="34" cy="46" r="12" fill="#000" stroke="#1E1E24" stroke-width="3"/><circle cx="34" cy="46" r="9" fill="#2EC4B6"/><circle cx="66" cy="46" r="12" fill="#000" stroke="#1E1E24" stroke-width="3"/><circle cx="66" cy="46" r="9" fill="#2EC4B6"/></svg>`,
+      luna: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="55" rx="35" ry="30" fill="#E6C280" stroke="#1E1E24" stroke-width="4"/><path d="M18 35 C10 25, 12 50, 22 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><path d="M82 35 C90 25, 88 50, 78 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><ellipse cx="50" cy="65" rx="18" ry="14" fill="#4B3621" stroke="#1E1E24" stroke-width="2"/><polygon points="34,35 38,45 48,45 40,51 43,61 34,55 25,61 28,51 20,45 30,45" fill="#FF6B35" stroke="#1E1E24" stroke-width="2"/><polygon points="66,35 70,45 80,45 72,51 75,61 66,55 57,61 60,51 52,45 62,45" fill="#FF6B35" stroke="#1E1E24" stroke-width="2"/></svg>`,
+      bboy: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="55" rx="35" ry="30" fill="#E6C280" stroke="#1E1E24" stroke-width="4"/><path d="M18 35 C10 25, 12 50, 22 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><path d="M82 35 C90 25, 88 50, 78 45 Z" fill="#4B3621" stroke="#1E1E24" stroke-width="3"/><ellipse cx="50" cy="65" rx="18" ry="14" fill="#4B3621" stroke="#1E1E24" stroke-width="2"/><path d="M25 32 Q45 10 75 32 Z" fill="#2EC4B6" stroke="#1E1E24" stroke-width="3"/><circle cx="34" cy="48" r="10" fill="#000" stroke="#1E1E24" stroke-width="2"/><circle cx="66" cy="48" r="10" fill="#000" stroke="#1E1E24" stroke-width="2"/></svg>`,
+      
+      // AVATAR COCODRILO "CROCKO-FLOW"
+      cocodrilo: `<svg viewBox="0 0 100 100" class="w-full h-full">
+        <!-- Cabeza y Hocico -->
+        <rect x="25" y="45" width="50" height="28" rx="8" fill="#4E9F3D" stroke="#1E1E24" stroke-width="4"/>
+        <ellipse cx="50" cy="45" rx="22" ry="18" fill="#4E9F3D" stroke="#1E1E24" stroke-width="4"/>
+        <!-- Ojos / Gafas de Sol de Estrella o Redondas Rosa -->
+        <circle cx="38" cy="42" r="12" fill="#000" stroke="#1E1E24" stroke-width="3" />
+        <circle cx="38" cy="42" r="9" fill="#FF1493" />
+        <circle cx="62" cy="42" r="12" fill="#000" stroke="#1E1E24" stroke-width="3" />
+        <circle cx="62" cy="42" r="9" fill="#FF1493" />
+        <line x1="48" y1="42" x2="52" y2="42" stroke="#1E1E24" stroke-width="3" />
+        <!-- Escamas arriba -->
+        <polygon points="40,27 50,15 60,27" fill="#19540E" stroke="#1E1E24" stroke-width="3"/>
+        <!-- Dientes asomando -->
+        <polygon points="32,68 36,60 40,68" fill="#FFF" stroke="#1E1E24" stroke-width="2"/>
+        <polygon points="44,68 48,60 52,68" fill="#FFF" stroke="#1E1E24" stroke-width="2"/>
+        <polygon points="56,68 60,60 64,68" fill="#FFF" stroke="#1E1E24" stroke-width="2"/>
+      </svg>`,
+      
+      // AVATAR ORNITORRINCO "PERRY-B"
+      ornitorrinco: `<svg viewBox="0 0 100 100" class="w-full h-full">
+        <!-- Cuerpo/Cara -->
+        <ellipse cx="50" cy="55" rx="30" ry="28" fill="#125B50" stroke="#1E1E24" stroke-width="4"/>
+        <!-- Pico de Pato Grande -->
+        <ellipse cx="50" cy="65" rx="22" ry="12" fill="#F4A261" stroke="#1E1E24" stroke-width="3.5"/>
+        <line x1="32" y1="65" x2="68" y2="65" stroke="#1E1E24" stroke-width="2"/>
+        <!-- Gafas Redondas con Reflejo -->
+        <circle cx="36" cy="44" r="11" fill="#000" stroke="#1E1E24" stroke-width="3"/>
+        <circle cx="36" cy="44" r="8" fill="#E76F51"/>
+        <circle cx="64" cy="44" r="11" fill="#000" stroke="#1E1E24" stroke-width="3"/>
+        <circle cx="64" cy="44" r="8" fill="#E76F51"/>
+        <line x1="45" y1="44" x2="55" y2="44" stroke="#1E1E24" stroke-width="3"/>
+        <!-- Sombrero Fedora 60s -->
+        <path d="M30 30 C30 18, 70 18, 70 30 Z" fill="#2A9D8F" stroke="#1E1E24" stroke-width="3.5"/>
+        <rect x="24" y="28" width="52" height="5" rx="2.5" fill="#E76F51" stroke="#1E1E24" stroke-width="3"/>
+      </svg>`,
+      
+      // AVATAR HIPOPÓTAMO "HEAVY-H"
+      hipopotamo: `<svg viewBox="0 0 100 100" class="w-full h-full">
+        <!-- Orejas -->
+        <circle cx="25" cy="28" r="8" fill="#8380B6" stroke="#1E1E24" stroke-width="3"/>
+        <circle cx="75" cy="28" r="8" fill="#8380B6" stroke="#1E1E24" stroke-width="3"/>
+        <!-- Cabeza Principal -->
+        <ellipse cx="50" cy="52" rx="34" ry="26" fill="#8380B6" stroke="#1E1E24" stroke-width="4"/>
+        <!-- Gran Hocico Inferior -->
+        <ellipse cx="50" cy="68" rx="28" ry="18" fill="#69669E" stroke="#1E1E24" stroke-width="3.5"/>
+        <!-- Narinas -->
+        <circle cx="42" cy="65" r="4" fill="#1E1E24"/>
+        <circle cx="58" cy="65" r="4" fill="#1E1E24"/>
+        <!-- Gafas Negras de Marco Grueso Cuadrado/Redondeado -->
+        <rect x="22" y="38" width="22" height="18" rx="6" fill="#000" stroke="#1E1E24" stroke-width="3.5"/>
+        <rect x="25" y="41" width="16" height="12" rx="4" fill="#FFD700"/>
+        <rect x="56" y="38" width="22" height="18" rx="6" fill="#000" stroke="#1E1E24" stroke-width="3.5"/>
+        <rect x="59" y="41" width="16" height="12" rx="4" fill="#FFD700"/>
+        <line x1="44" y1="46" x2="56" y2="46" stroke="#1E1E24" stroke-width="4" />
+        <!-- Arete de oro en la nariz -->
+        <circle cx="34" cy="74" r="5" fill="none" stroke="#FFD700" stroke-width="3.5"/>
+      </svg>`,
+      
+      // AVATAR CUERVO "CROW-HOP"
+      cuervo: `<svg viewBox="0 0 100 100" class="w-full h-full">
+        <!-- Boina Francesa Sesentera (De lado) -->
+        <ellipse cx="44" cy="22" rx="20" ry="8" fill="#D62828" stroke="#1E1E24" stroke-width="3.5"/>
+        <rect x="42" y="14" width="3" height="6" fill="#1E1E24"/>
+        <!-- Cabeza de Cuervo -->
+        <circle cx="50" cy="46" r="26" fill="#2B2D42" stroke="#1E1E24" stroke-width="4"/>
+        <!-- Pico Grande -->
+        <polygon points="50,44 86,54 50,66" fill="#FFB703" stroke="#1E1E24" stroke-width="4" stroke-linejoin="round"/>
+        <!-- Gafas de Sol Redondas con Marco Amarillo -->
+        <circle cx="40" cy="42" r="11" fill="#FFB703" stroke="#1E1E24" stroke-width="3" />
+        <circle cx="40" cy="42" r="8" fill="#1E1E24" />
+        <circle cx="40" cy="42" r="2" fill="#FFF" class="opacity-80"/>
+      </svg>`
+    };
+
+    // --- MANEJO DE SESIONES MC & ESTADÍSTICAS ---
+    let currentUserMC = "";
+    let currentAvatar = "buster";
+    let isUserLoggedIn = false;
+    let totalBarsRated = 0;
+    let accumulatedPoints = 0;
+    let userRapBio = "";
+
+    function selectAvatar(avatarType) {
+      currentAvatar = avatarType;
+      // Actualizar bordes de selección de login
+      document.querySelectorAll('.avatar-option').forEach(btn => {
+        btn.classList.remove('border-vintageBlack', 'scale-105');
+        btn.classList.add('border-slate-300');
+      });
+      
+      const targetBtnLogin = document.getElementById(`avatar-select-${avatarType}`);
+      if (targetBtnLogin) {
+        targetBtnLogin.classList.remove('border-slate-300');
+        targetBtnLogin.classList.add('border-vintageBlack', 'scale-105');
+      }
+
+      const targetBtnProfile = document.getElementById(`profile-avatar-${avatarType}`);
+      if (targetBtnProfile) {
+        targetBtnProfile.classList.remove('border-slate-300');
+        targetBtnProfile.classList.add('border-vintageBlack', 'scale-105');
+      }
+
+      // Renderizar avatar dinámico en el login
+      document.getElementById('login-logo-container').innerHTML = AVATARS[avatarType];
+      
+      // Renderizar avatar en la cabecera
+      const hAvatar = document.getElementById('header-avatar');
+      if (hAvatar) hAvatar.innerHTML = AVATARS[avatarType];
+    }
+
+    function updateMCTitle() {
+      let title = "MC NOVATO";
+      if (accumulatedPoints >= 10 && accumulatedPoints < 30) {
+        title = "PULPO DEL RITMO";
+      } else if (accumulatedPoints >= 30 && accumulatedPoints < 60) {
+        title = "MAESTRO SESENTERO";
+      } else if (accumulatedPoints >= 60) {
+        title = "LEYENDA DEL COMPÁS";
+      }
+      
+      document.getElementById('header-mc-title').innerText = title;
+      document.getElementById('profile-stat-title').innerText = title;
+    }
+
+    function saveProfileBio() {
+      userRapBio = document.getElementById('profile-bio').value.trim();
+      openCustomModal("Firma Actualizada", "Tu lema rapero ha sido guardado. Buster lo tendrá en cuenta al batallar.", "fa-solid fa-circle-check");
+    }
+
+    function loginUser() {
+      const nameInput = document.getElementById('login-mc-name').value.trim();
+      if (!nameInput) {
+        openCustomModal("¡Ingresa tu apodo!", "Para subir al escenario, debes ingresar un nombre de batalla.", "fa-solid fa-user-pen");
+        return;
+      }
+      
+      currentUserMC = nameInput.toUpperCase();
+      isUserLoggedIn = true;
+
+      // Actualizar visualizaciones del usuario
+      document.getElementById('header-mc-display-name').innerText = currentUserMC;
+      document.getElementById('profile-stat-score').innerText = `${accumulatedPoints} pts`;
+      document.getElementById('profile-stat-bars').innerText = `${totalBarsRated} rimas`;
+      
+      // Transición responsiva de pantallas
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('main-app').classList.remove('hidden');
+
+      // Sincronizar Avatar seleccionado
+      selectAvatar(currentAvatar);
+
+      // Inicializar chat con el apodo del usuario
+      clearBattle();
+
+      // Modal de bienvenida retro
+      openCustomModal(
+        `¡Al micro, ${currentUserMC}!`,
+        "El estudio vintage de BraFree está listo. Sube la base, enciende tu voz y demuestra tu flow.",
+        "fa-solid fa-bolt-lightning"
+      );
+
+      generateNewOracion();
+    }
+
+    function logoutUser() {
+      if (isBeatPlaying) {
+        toggleBeat();
+      }
+
+      currentUserMC = "";
+      isUserLoggedIn = false;
+      oracionScore = 0;
+      accumulatedPoints = 0;
+      totalBarsRated = 0;
+      userRapBio = "";
+      document.getElementById('oracion-score').innerText = "0";
+      document.getElementById('oracion-history').innerHTML = `
+        <div class="bg-vintageYellow/30 p-3 rounded-lg border-2 border-vintageBlack text-xs font-semibold italic text-slate-700">
+          No has tirado barras en esta sesión. ¡Saca el micro!
+        </div>
+      `;
+      document.getElementById('login-mc-name').value = "";
+      document.getElementById('profile-bio').value = "";
+
+      document.getElementById('main-app').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+
+      openCustomModal(
+        "Sesión Cerrada",
+        "Has dejado el estudio vintage de BraFree. Tus registros se han limpiado.",
+        "fa-solid fa-right-from-bracket"
+      );
+    }
+
+    // --- CAMBIADOR DE TEMAS DE COLOR ---
+    function changeTheme(themeType) {
+      const body = document.body;
+      body.classList.remove('theme-psychedelic', 'theme-lofi', 'theme-noir');
+      
+      if (themeType === 'psychedelic') {
+        body.classList.add('theme-psychedelic');
+      } else if (themeType === 'lofi') {
+        body.classList.add('theme-lofi');
+      } else if (themeType === 'noir') {
+        body.classList.add('theme-noir');
+      }
+      
+      openCustomModal(
+        "Aspecto Cambiado",
+        `Has configurado la app con el estilo visual seleccionado.`,
+        "fa-solid fa-palette"
+      );
+    }
+
+
+    // --- RECONOCIMIENTO DE VOZ NATIVO (Web Speech API) ---
+    let recognition = null;
+    let isListening = false;
+    let activeInputId = null;
+    let activeIndicatorId = null;
+
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        console.warn("Reconocimiento de voz no soportado en este navegador.");
+        return false;
+      }
+      
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'es-ES';
+
+      recognition.onstart = () => {
+        isListening = true;
+        updateMicButtonUI(true);
+        if (activeIndicatorId) {
+          document.getElementById(activeIndicatorId).classList.remove('hidden');
+        }
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (activeInputId) {
+          const inputElem = document.getElementById(activeInputId);
+          inputElem.value = transcript;
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Error en reconocimiento de voz", event.error);
+        if (event.error === 'not-allowed') {
+          openCustomModal("Micrófono Bloqueado", "Por favor, otorga accesos al micrófono en la barra de tu navegador.", "fa-solid fa-microphone-slash");
+        }
+        stopSpeechRecognition();
+      };
+
+      recognition.onend = () => {
+        stopSpeechRecognition();
+      };
+
+      return true;
+    }
+
+    function toggleSpeechRecognition(inputId, indicatorId) {
+      if (!recognition) {
+        const initialized = initSpeechRecognition();
+        if (!initialized) {
+          openCustomModal("Incompatible", "El dictado por voz no es compatible con este navegador. Por favor usa Chrome, Edge o Safari.", "fa-solid fa-circle-info");
+          return;
+        }
+      }
+
+      if (isListening) {
+        recognition.stop();
+        stopSpeechRecognition();
+      } else {
+        activeInputId = inputId;
+        activeIndicatorId = indicatorId;
+        recognition.start();
+      }
+    }
+
+    function stopSpeechRecognition() {
+      isListening = false;
+      updateMicButtonUI(false);
+      if (activeIndicatorId) {
+        document.getElementById(activeIndicatorId).classList.add('hidden');
+      }
+      activeInputId = null;
+      activeIndicatorId = null;
+    }
+
+    function updateMicButtonUI(listening) {
+      const micOracion = document.getElementById('mic-icon-oracion');
+      const micBattle = document.getElementById('mic-icon-battle');
+      const statusBadge = document.getElementById('mic-status-badge');
+      
+      if (listening) {
+        if (micOracion) micOracion.className = "fa-solid fa-microphone-lines text-red-500 animate-pulse";
+        if (micBattle) micBattle.className = "fa-solid fa-microphone-lines text-red-500 animate-pulse";
+        if (statusBadge) {
+          statusBadge.innerText = "CAPTURA ACTIVA";
+          statusBadge.className = "bg-vintageOrange text-white px-2 py-0.5 rounded-md text-[9px] animate-pulse";
+        }
+      } else {
+        if (micOracion) micOracion.className = "fa-solid fa-microphone text-vintageOrange";
+        if (micBattle) micBattle.className = "fa-solid fa-microphone text-vintageOrange";
+        if (statusBadge) {
+          statusBadge.innerText = "INACTIVO";
+          statusBadge.className = "bg-red-500 text-white px-2 py-0.5 rounded-md text-[9px]";
+        }
+      }
+    }
+
+
+    // --- SINTETIZADOR DE BEATS (Web Audio API) ---
+    let audioCtx = null;
+    let isBeatPlaying = false;
+    let nextNoteTime = 0.0;
+    let current16thNote = 0;
+    let timerID = null;
+    let bpm = 90;
+    const lookahead = 25.0; 
+    const scheduleAheadTime = 0.1; 
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function createKick(time) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.frequency.setValueAtTime(150, time);
+      osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.3);
+      gain.gain.setValueAtTime(1.0, time);
+      gain.gain.exponentialRampToValueAtTime(0.01, time + 0.3);
+
+      osc.start(time);
+      osc.stop(time + 0.3);
+    }
+
+    function createSnare(time, isLofi = false) {
+      const bufferSize = audioCtx.sampleRate * 0.2;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = isLofi ? 800 : 1000;
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(isLofi ? 0.3 : 0.5, time);
+      gain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      const osc = audioCtx.createOscillator();
+      const oscGain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(180, time);
+      oscGain.gain.setValueAtTime(isLofi ? 0.1 : 0.2, time);
+      oscGain.gain.exponentialRampToValueAtTime(0.01, time + 0.1);
+      osc.connect(oscGain);
+      oscGain.connect(audioCtx.destination);
+
+      noise.start(time);
+      noise.stop(time + 0.25);
+      osc.start(time);
+      osc.stop(time + 0.1);
+    }
+
+    function createHiHat(time, isLofi = false) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(10000, time);
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'highpass';
+      filter.frequency.value = 7000;
+
+      gain.gain.setValueAtTime(isLofi ? 0.05 : 0.12, time);
+      gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(time);
+      osc.stop(time + 0.06);
+    }
+
+    function scheduleNote(noteNumber, time) {
+      const beatStyle = document.getElementById('beat-selector').value;
+      const isLofi = beatStyle === 'lofi';
+
+      if (beatStyle === 'boombap') {
+        if (noteNumber === 0 || noteNumber === 8 || noteNumber === 11) {
+          createKick(time);
+        }
+        if (noteNumber === 4 || noteNumber === 12) {
+          createSnare(time, false);
+        }
+        if (noteNumber % 2 === 0) {
+          createHiHat(time, false);
+        }
+      } else if (beatStyle === 'lofi') {
+        if (noteNumber === 0 || noteNumber === 10) {
+          createKick(time);
+        }
+        if (noteNumber === 4 || noteNumber === 12) {
+          createSnare(time, true);
+        }
+        if (noteNumber % 2 === 0) {
+          createHiHat(time, true);
+        }
+      } else if (beatStyle === 'trap') {
+        if (noteNumber === 0 || noteNumber === 6 || noteNumber === 8) {
+          createKick(time);
+        }
+        if (noteNumber === 4 || noteNumber === 12) {
+          createSnare(time, false);
+        }
+        if (noteNumber % 1 === 0) {
+          createHiHat(time, false);
+        }
+      }
+    }
+
+    function scheduler() {
+      while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime) {
+        scheduleNote(current16thNote, nextNoteTime);
+        nextNote();
+      }
+      timerID = setTimeout(scheduler, lookahead);
+    }
+
+    function nextNote() {
+      const secondsPerBeat = 60.0 / bpm;
+      const secondsPer16th = secondsPerBeat / 4; 
+      nextNoteTime += secondsPer16th;
+
+      current16thNote = (current16thNote + 1) % 16;
+    }
+
+    function toggleBeat() {
+      initAudio();
+      const btn = document.getElementById('beat-toggle-btn');
+      const btnMobile = document.getElementById('beat-toggle-btn-mobile');
+      bpm = parseInt(document.getElementById('beat-bpm').value) || 90;
+
+      if (!isBeatPlaying) {
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        current16thNote = 0;
+        nextNoteTime = audioCtx.currentTime;
+        scheduler();
+        isBeatPlaying = true;
+        
+        btn.innerHTML = `STOP`;
+        btn.classList.remove('bg-vintageGreen');
+        btn.classList.add('bg-vintageOrange', 'text-white');
+
+        btnMobile.innerHTML = `DETENER`;
+        btnMobile.classList.remove('bg-vintageGreen');
+        btnMobile.classList.add('bg-vintageOrange', 'text-white');
+      } else {
+        clearTimeout(timerID);
+        isBeatPlaying = false;
+        
+        btn.innerHTML = `PLAY`;
+        btn.classList.remove('bg-vintageOrange', 'text-white');
+        btn.classList.add('bg-vintageGreen', 'text-vintageBlack');
+
+        btnMobile.innerHTML = `PLAY RITMO`;
+        btnMobile.classList.remove('bg-vintageOrange', 'text-white');
+        btnMobile.classList.add('bg-vintageGreen', 'text-vintageBlack');
+      }
+    }
+
+    function syncBeatSelectors(el) {
+      document.getElementById('beat-selector').value = el.value;
+    }
+
+    document.getElementById('beat-toggle-btn').addEventListener('click', toggleBeat);
+    document.getElementById('beat-bpm').addEventListener('change', (e) => {
+      bpm = Math.max(60, Math.min(140, parseInt(e.target.value) || 90));
+      e.target.value = bpm;
+    });
+
+
+    // --- CONMUTADOR DE ACTIVIDADES ---
+    function switchMode(mode) {
+      document.querySelectorAll('.mode-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`panel-${mode}`).classList.remove('hidden');
+
+      document.querySelectorAll('.mode-select-btn').forEach(btn => {
+        btn.classList.remove('bg-vintageOrange', 'text-white');
+        btn.classList.add('bg-white', 'text-vintageBlack');
+      });
+      document.getElementById(`btn-mode-${mode}`).classList.remove('bg-white', 'text-vintageBlack');
+      document.getElementById(`btn-mode-${mode}`).classList.add('bg-vintageOrange', 'text-white');
+
+      if (mode === 'palabras') {
+        startPalabrasSystem();
+      } else {
+        stopPalabrasSystem();
+      }
+
+      if (mode === 'oracion') {
+        startOracionTimer();
+      } else {
+        stopOracionTimer();
+      }
+    }
+
+
+    // --- ACTIVIDAD 1: COMPLETA LA ORACIÓN LOGIC ---
+    let oracionTimerInterval = null;
+    let oracionTimeLeft = 30;
+    let oracionScore = 0;
+    
+    const initialPhrases = [
+      { text: "Ayer salí a la calle buscando inspiración...", rhyming: "corazón" },
+      { text: "Buster ladra fuerte mientras sigo improvisando...", rhyming: "volando" },
+      { text: "La base va marcando un ritmo de locura...", rhyming: "altura" },
+      { text: "Mirando por la ventana el cielo se oscurece...", rhyming: "merece" },
+      { text: "Prendo el micro y tiro lo que el alma siente...", rhyming: "mente" }
+    ];
+
+    let currentOracionObj = {};
+
+    function startOracionTimer() {
+      stopOracionTimer();
+      oracionTimeLeft = 30;
+      document.getElementById('oracion-timer').innerText = oracionTimeLeft;
+      
+      oracionTimerInterval = setInterval(() => {
+        oracionTimeLeft--;
+        document.getElementById('oracion-timer').innerText = oracionTimeLeft;
+        
+        if (oracionTimeLeft <= 0) {
+          stopOracionTimer();
+          openCustomModal(
+            "¡Se acabó el tiempo!", 
+            "El reloj llegó a cero antes de que pudieras lanzar tu remate. ¡Prueba otra rima!",
+            "fa-solid fa-hourglass-end"
+          );
+          generateNewOracion();
+        }
+      }, 1000);
+    }
+
+    function stopOracionTimer() {
+      if (oracionTimerInterval) clearInterval(oracionTimerInterval);
+    }
+
+    function generateNewOracion() {
+      const idx = Math.floor(Math.random() * initialPhrases.length);
+      currentOracionObj = initialPhrases[idx];
+      document.getElementById('oracion-prompt').innerText = `"${currentOracionObj.text}"`;
+      document.getElementById('oracion-target-word').innerText = currentOracionObj.rhyming.toUpperCase();
+      document.getElementById('oracion-input').value = "";
+      if (isUserLoggedIn) {
+        startOracionTimer();
+      }
+    }
+
+    async function checkOracionAnswer() {
+      const userInput = document.getElementById('oracion-input').value.trim();
+      if (!userInput) {
+        openCustomModal("¡Campo Vacío!", "Escribe o dicta tu barra de rima primero.", "fa-solid fa-triangle-exclamation");
+        return;
+      }
+
+      stopOracionTimer();
+      document.getElementById('oracion-input').disabled = true;
+      document.getElementById('oracion-prompt').innerText = "Buster está evaluando tus barras con su flow de los 60s...";
+
+      const query = `Analiza la siguiente continuación de freestyle rap en español.
+      Frase inicial: "${currentOracionObj.text}"
+      Palabra rima objetivo: "${currentOracionObj.rhyming}"
+      Frase del usuario: "${userInput}"
+      
+      Por favor, evalúa:
+      1. ¿La frase del usuario rima correctamente con la palabra objetivo? (Debe rimar de forma consonante o asonante).
+      2. ¿Tiene sentido y flow como una línea de freestyle?
+      
+      Responde estrictamente en formato JSON con la siguiente estructura:
+      {
+        "aprobado": true o false,
+        "calificacion": un entero del 1 al 10,
+        "feedback": "un comentario muy corto y con onda hiphop de los 60s, máximo 12 palabras."
+      }`;
+
+      try {
+        const response = await fetchWithRetry(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: query }] }],
+              generationConfig: { responseMimeType: "application/json" }
+            })
+          }
+        );
+
+        const text = response.candidates?.[0]?.content?.parts?.[0]?.text;
+        const result = JSON.parse(text);
+
+        if (result.aprobado) {
+          oracionScore += result.calificacion;
+          accumulatedPoints += result.calificacion;
+          totalBarsRated += 1;
+          
+          document.getElementById('oracion-score').innerText = oracionScore;
+          document.getElementById('profile-stat-score').innerText = `${accumulatedPoints} pts`;
+          document.getElementById('profile-stat-bars').innerText = `${totalBarsRated} rimas`;
+          
+          updateMCTitle();
+
+          openCustomModal(
+            `¡Increíble Rima! (${result.calificacion}/10)`,
+            `Buster dice: "${result.feedback}"`,
+            "fa-solid fa-fire-flame-curved"
+          );
+
+          document.getElementById('oracion-history').innerHTML = `
+            <div class="text-[10px] text-vintageOrange font-bold">¡FRASÓN CALIFICADO CON ${result.calificacion}!</div>
+            <p class="font-semibold text-vintageBlack mt-0.5">"${currentOracionObj.text} ${userInput}"</p>
+          `;
+        } else {
+          openCustomModal(
+            "¡Le faltó flow!",
+            `Buster dice: "${result.feedback || "Esa rima no encajó en el tempo."}"`,
+            "fa-solid fa-heart-crack"
+          );
+        }
+
+      } catch (err) {
+        console.error(err);
+        const isRhymeCandidate = userInput.toLowerCase().endsWith(currentOracionObj.rhyming.slice(-2)) || userInput.toLowerCase().includes(currentOracionObj.rhyming);
+        if (isRhymeCandidate) {
+          oracionScore += 8;
+          accumulatedPoints += 8;
+          totalBarsRated += 1;
+          document.getElementById('oracion-score').innerText = oracionScore;
+          document.getElementById('profile-stat-score').innerText = `${accumulatedPoints} pts`;
+          document.getElementById('profile-stat-bars').innerText = `${totalBarsRated} rimas`;
+          updateMCTitle();
+          openCustomModal("¡Buena barra! (Modo Local)", "Lograste conectar la rima en tu final.", "fa-solid fa-star");
+        } else {
+          openCustomModal("¡Oh no!", "Asegúrate de rimar con la palabra objetivo indicada en el globo.", "fa-solid fa-circle-xmark");
+        }
+      } finally {
+        document.getElementById('oracion-input').disabled = false;
+        generateNewOracion();
+      }
+    }
+
+    document.getElementById('oracion-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkOracionAnswer();
+    });
+
+
+    // --- ACTIVIDAD 2: PALABRAS AL VIENTO LOGIC ---
+    let palabrasMazo = [
+      "Graffiti", "Asfalto", "Radio", "Camino", "Barrio", "Micro", "Estrella", "Nostalgia",
+      "Sombra", "Gigante", "Espejo", "Ventana", "Vinilo", "Sonido", "Fuego", "Viento",
+      "Tiempo", "Secreto", "Máscara", "Esquina", "Poesía", "Vuelo", "Latido", "Destello"
+    ];
+    let palabrasIntervalSeconds = 10;
+    let palabrasTimer = null;
+    let timeElapsed = 0;
+
+    function startPalabrasSystem() {
+      stopPalabrasSystem();
+      resetPalabrasTimer();
+    }
+
+    function stopPalabrasSystem() {
+      if (palabrasTimer) clearInterval(palabrasTimer);
+    }
+
+    function resetPalabrasTimer() {
+      stopPalabrasSystem();
+      palabrasIntervalSeconds = parseInt(document.getElementById('palabras-interval').value) || 10;
+      timeElapsed = 0;
+      
+      triggerNextWord();
+
+      palabrasTimer = setInterval(() => {
+        timeElapsed += 100; 
+        const progressPercent = 100 - ((timeElapsed / (palabrasIntervalSeconds * 1000)) * 100);
+        document.getElementById('palabras-progress').style.width = `${Math.max(0, progressPercent)}%`;
+
+        if (timeElapsed >= palabrasIntervalSeconds * 1000) {
+          timeElapsed = 0;
+          triggerNextWord();
+        }
+      }, 100);
+    }
+
+    function triggerNextWord() {
+      timeElapsed = 0;
+      const currentWord = document.getElementById('palabra-next-1').innerText;
+      document.getElementById('palabras-current').innerText = currentWord;
+
+      const next1 = document.getElementById('palabra-next-2').innerText;
+      const next2 = document.getElementById('palabra-next-3').innerText;
+      const next3 = palabrasMazo[Math.floor(Math.random() * palabrasMazo.length)];
+
+      document.getElementById('palabra-next-1').innerText = next1;
+      document.getElementById('palabra-next-2').innerText = next2;
+      document.getElementById('palabra-next-3').innerText = next3;
+    }
+
+    function addCustomWords() {
+      const val = document.getElementById('palabra-custom-input').value.trim();
+      if (!val) return;
+      const splitWords = val.split(',').map(w => w.trim()).filter(w => w.length > 0);
+      palabrasMazo.push(...splitWords);
+      document.getElementById('palabra-custom-input').value = "";
+      
+      openCustomModal("¡Mazo Listo!", `Se agregaron ${splitWords.length} palabras al mazo de entrenamiento.`, "fa-solid fa-circle-check");
+    }
+
+
+    // --- ACTIVIDAD 3: ESTÍMULO VISUAL IA LOGIC ---
+    const visualConcepts = [
+      "un tocadiscos vintage flotando en el espacio exterior",
+      "un gato tocando jazz en un saxofón gigante de neón",
+      "una cabina de teléfono roja de los años 60 en medio de la selva",
+      "un televisor analógico con un ojo gigante en la pantalla",
+      "un perro pug vistiendo chaqueta de cuero en un atardecer futurista",
+      "un tren de vapor hecho enteramente de cintas de casete retro",
+      "una taza de café humeante con una galaxia espiral adentro"
+    ];
+
+    async function generateVisualStimulus() {
+      const loader = document.getElementById('image-loading-overlay');
+      const img = document.getElementById('stimulus-img');
+      const placeholder = document.getElementById('img-placeholder');
+      const conceptBadge = document.getElementById('current-concept');
+
+      loader.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      img.classList.add('hidden');
+
+      const concept = visualConcepts[Math.floor(Math.random() * visualConcepts.length)];
+      conceptBadge.innerText = concept.toUpperCase();
+
+      const imagePrompt = `60s cartoon illustration style, bright vintage warm colors, minimalist bold ink outline, subject: ${concept}. High quality vector poster.`;
+
+      try {
+        const response = await fetchWithRetry(
+          `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              instances: [{ prompt: imagePrompt }],
+              parameters: { sampleCount: 1 }
+            })
+          }
+        );
+
+        const base64Bytes = response.predictions?.[0]?.bytesBase64Encoded;
+        if (base64Bytes) {
+          img.src = `data:image/png;base64,${base64Bytes}`;
+          img.classList.remove('hidden');
+        } else {
+          throw new Error("No se obtuvo base64.");
+        }
+      } catch (err) {
+        console.error(err);
+        img.src = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80"; 
+        img.classList.remove('hidden');
+        conceptBadge.innerText = `${concept.toUpperCase()} (Modo Local)`;
+      } finally {
+        loader.classList.add('hidden');
+      }
+    }
+
+
+    // --- ACTIVIDAD 4: BATALLA CONTRA BUSTER LOGIC ---
+    let battleHistory = [];
+
+    function updateBattleChatUI() {
+      const chat = document.getElementById('battle-chat');
+      chat.innerHTML = ""; 
+
+      battleHistory.forEach((message) => {
+        const isBuster = message.role === "model";
+        const senderName = isBuster ? "BUSTER (EL PUG RAPERO)" : currentUserMC;
+        
+        const bubbleBg = isBuster ? "bg-white" : "bg-vintageYellow";
+        const alignSide = isBuster ? "items-start" : "items-end flex-row-reverse text-right ml-auto";
+        const borderStyle = isBuster ? "border-vintageBlack" : "border-vintageOrange";
+
+        const avatarSvg = isBuster ? `
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-vintageYellow rounded-full border-2 border-vintageBlack p-0.5 flex-shrink-0">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <ellipse cx="50" cy="55" rx="35" ry="30" fill="#E6C280" stroke="#1E1E24" stroke-width="3" />
+              <circle cx="34" cy="46" r="14" fill="#000" stroke="#1E1E24" stroke-width="3" />
+              <circle cx="34" cy="46" r="10" fill="#FFD700" />
+              <circle cx="66" cy="46" r="14" fill="#000" stroke="#1E1E24" stroke-width="3" />
+              <circle cx="66" cy="46" r="10" fill="#FFD700" />
+              <line x1="47" y1="46" x2="53" y2="46" stroke="#1E1E24" stroke-width="3" />
+            </svg>
+          </div>
+        ` : `
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-vintageGreen rounded-full border-2 border-vintageBlack p-0.5 flex-shrink-0 overflow-hidden flex items-center justify-center">
+            ${AVATARS[currentAvatar]}
+          </div>
+        `;
+
+        chat.innerHTML += `
+          <div class="flex ${alignSide} gap-2.5 max-w-full">
+            ${avatarSvg}
+            <div class="${bubbleBg} p-2.5 sm:p-3 rounded-xl border-2 ${borderStyle} shadow-neo-sm max-w-[80%] md:max-w-md">
+              <span class="font-retro text-[9px] text-vintageOrange block mb-0.5">${senderName}</span>
+              <p class="text-xs sm:text-sm font-bold leading-normal">${message.parts[0].text}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function sendBattleTurn() {
+      const inputField = document.getElementById('battle-input');
+      const sendBtn = document.getElementById('btn-battle-send');
+      const userText = inputField.value.trim();
+
+      if (!userText) return;
+
+      battleHistory.push({ role: "user", parts: [{ text: userText }] });
+      updateBattleChatUI();
+      inputField.value = "";
+      
+      inputField.disabled = true;
+      sendBtn.disabled = true;
+
+      const systemPrompt = `Eres Buster, un pug de caricatura de los años 60 que además es un maestro de las rimas callejeras (hip-hop, freestyle, rap de la vieja escuela).
+      Estás en una "Batalla de Gallos" o duelo de rap amistoso y retador contra el usuario que tiene por apodo de MC: ${currentUserMC} (quien está usando un avatar de tipo ${currentAvatar}).
+      Biografía/Lema del usuario: "${userRapBio || "N/A"}".
+      
+      Tus características principales son:
+      1. Tienes un flow sumamente ágil, ingenioso y divertido. Usas jerga retro del hip-hop en español y referencias perrunas simpáticas (ladrido, hueso, morder, parque, olfatear).
+      2. Tus respuestas deben estar compuestas estrictamente por una estrofa de rap de exactamente 4 versos (una cuarteta), rimando de forma consonante o asonante (AABB, ABAB o ABCB).
+      3. Mantén un tono vacilón pero amigable, típico de un personaje cartoon clásico de Hanna-Barbera de los 60s combinado con un B-Boy.
+      4. No excedas las 4 líneas de rima en tu respuesta.`;
+
+      try {
+        const response = await fetchWithRetry(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: battleHistory,
+              systemInstruction: { parts: [{ text: systemPrompt }] }
+            })
+          }
+        );
+
+        const busterReply = response.candidates?.[0]?.content?.parts?.[0]?.text || "Guau, tu rima me dejó sin respirar, / pero este pug de los sesenta sigue en su lugar. / Sube el BPM y ponme otra base instrumental, / que mi estilo en este barrio sigue siendo el primordial.";
+        
+        battleHistory.push({ role: "model", parts: [{ text: busterReply }] });
+        updateBattleChatUI();
+
+        accumulatedPoints += 5;
+        totalBarsRated += 1;
+        document.getElementById('profile-stat-score').innerText = `${accumulatedPoints} pts`;
+        document.getElementById('profile-stat-bars').innerText = `${totalBarsRated} rimas`;
+        updateMCTitle();
+
+      } catch (err) {
+        console.error(err);
+        const fallbacks = [
+          `¡Guau guau! Ese ataque de ${currentUserMC} no tiene filo, / yo soy un pug veterano que se mantiene con estilo. / Traigo el ritmo de los sesenta directo a tu mente, / rimando sin pausa y frente a toda la gente.`,
+          `Esquivo tus golpes con un salto mortal, / este pug en el micrófono tiene el puesto principal. / Muerdo el hueso del ritmo y no lo suelto jamás, / dime ${currentUserMC} qué traes para ver si rimas más.`
+        ];
+        const localReply = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        battleHistory.push({ role: "model", parts: [{ text: localReply }] });
+        updateBattleChatUI();
+      } finally {
+        inputField.disabled = false;
+        sendBtn.disabled = false;
+        inputField.focus();
+      }
+    }
+
+    function clearBattle() {
+      battleHistory = [
+        { role: "user", parts: [{ text: `Hola Buster, prepárate para perder el micro contra el mejor freestyle.` }] },
+        { role: "model", parts: [{ text: `¡Guau guau! ¿El mejor? Vengo de los años 60 cargado de jazz y soul. Tus rimas no pasan de moda, pero mi flow es eterno. ¡Demuéstrame tu calibre en este mic, ${currentUserMC || "MC"}!` }] }
+      ];
+      updateBattleChatUI();
+    }
+
+    document.getElementById('battle-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendBattleTurn();
+    });
+
+
+    // --- MODALES GENERALES ---
+    function openCustomModal(title, desc, iconClass = "fa-solid fa-trophy") {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-desc').innerText = desc;
+      document.getElementById('modal-icon').className = `text-2xl sm:text-3xl text-vintageOrange ${iconClass}`;
+      document.getElementById('custom-modal').classList.remove('hidden');
+    }
+
+    function closeCustomModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
+    }
+
+
+    // --- INICIALIZACIÓN Y RENDERIZADO DE SVGs EN SELECTORES ---
+    window.onload = function() {
+      // Poblar SVGs en las parrillas
+      const list = ['buster', 'duque', 'luna', 'bboy', 'cocodrilo', 'ornitorrinco', 'hipopotamo', 'cuervo'];
+      list.forEach(type => {
+        const loginEl = document.getElementById(`svg-opt-${type}`);
+        const profEl = document.getElementById(`svg-prof-${type}`);
+        if (loginEl) loginEl.innerHTML = AVATARS[type];
+        if (profEl) profEl.innerHTML = AVATARS[type];
+      });
+
+      selectAvatar('buster');
+    };
+
+  </script>
+</body>
+</html>
