@@ -100,11 +100,11 @@ const projects: P[] = [
       en: "A data-heavy workspace rebuilt to feel premium, direct and instantly readable.",
     },
     gallery: [
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+      "@public/src/assets/formaresortesimg1.jpg",
+      "@public/src/assets/formaresortesimg2.jpg",
+      "@public/src/assets/formaresortesimg3.jpg",
     ],
-    link: "https://example.com/aura-dashboard",
+    link: "https://formaresortes.com/",
   },
   {
     title: { es: "Lumen Agency", en: "Lumen Agency" },
